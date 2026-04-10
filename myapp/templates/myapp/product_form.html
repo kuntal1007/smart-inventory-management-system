@@ -1,0 +1,54 @@
+{% extends 'myapp/base.html' %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+  <div class="col-md-6">
+
+    <div class="card shadow p-4">
+      <h3 class="text-center mb-4">
+        {% if form.instance.pk %}Edit Product
+        {%else%}
+        Add Product
+        {% endif %}
+      </h3>
+
+
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="mb-3">
+          <label class="form-label">Product Name</label>
+          {{ form.name }}
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Price</label>
+          {{ form.price }}
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Description</label>
+          {{ form.description }}
+        </div>
+        
+        <div class="mb-3">
+          <label class="form-lable">Product Image</lable>
+          {{ form.image }}
+          </div>
+
+        <button class="btn btn-primary w-100">
+          {% if form.instance.pk %}
+          Update Product
+        {% else %}
+      Create Product
+      {% endif %}
+      </button>
+      </form>
+
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'myapp/base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2 class="mb-4 fw-bold">Dashboard</h2>
+
+    <!-- Cards -->
+    <div class="row">
+
+        <div class="col-md-4">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-body text-center">
+                    <h5>Total Products</h5>
+                    <h2>{{ total_products }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-body text-center">
+                    <h5>Total Value</h5>
+                    <h2>${{ total_value }}</h2>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Latest Products -->
+    <div class="card shadow mt-4">
+        <div class="card-header bg-dark text-white">
+            Latest Products
+        </div>
+
+        <div class="card-body">
+
+            {% if latest_products %}
+                <ul class="list-group">
+                    {% for product in latest_products %}
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>{{ product.name }}</span>
+                            <span class="text-success">${{ product.price }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="text-muted">No products yet</p>
+            {% endif %}
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
