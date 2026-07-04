@@ -9,12 +9,46 @@
     <a href="{% url 'product_create' %}" class="btn btn-success">+ Add Product</a>
 </div>
 
-<!-- Search -->
+
+<!-- Search + Category Filter -->
 <form method="GET" class="mb-4">
-    <div class="input-group">
-        <input type="text" name="q" class="form-control" placeholder="Search products...">
-        <button class="btn btn-outline-primary">Search</button>
+
+    <div class="d-flex gap-2 flex-wrap">
+
+        <!-- Search -->
+        <input type="text"
+               name="q"
+               class="form-control"
+               placeholder="Search products..."
+               value="{{ request.GET.q }}"
+               style="max-width: 300px;">
+
+        <!-- Category -->
+        <select name="category" class="form-select" style="max-width: 200px;">
+            <option value="">All Categories</option>
+            {% for category in categories %}
+                <option value="{{ category.id }}">{{ category.name }}</option>
+            {% endfor %}
+        </select>
+
+        <!-- Sort -->
+        <select name="sort" class="form-select" style="max-width: 200px;">
+            <option value="">Sort By</option>
+            <option value="newest">Newest</option>
+            <option value="oldest">Oldest</option>
+            <option value="price_low">Price: Low → High</option>
+            <option value="price_high">Price: High → Low</option>
+            <option value="stock_low">Stock: Low → High</option>
+            <option value="stock_high">Stock: High → Low</option>
+        </select>
+
+        <!-- Button -->
+        <button class="btn btn-primary">
+            Search
+        </button>
+
     </div>
+
 </form>
 
 <div class="row">
@@ -37,11 +71,43 @@
 
                 <h5 class="card-title">{{ product.name }}</h5>
 
+                {% if product.category %}
+
+<span class="badge bg-primary mb-2">
+    {{ product.category.name }}
+</span>
+
+{% else %}
+
+<span class="badge bg-secondary mb-2">
+    No Category
+</span>
+
+{% endif %}
+
                 <h6 class="text-success">${{ product.price }}</h6>
 
-                <p class="card-text">
+                <p class="mb-1">
+                   <strong>Stock:</strong> {{ product.stock }}
+                </p>
+                {% if product.stock == 0 %}
+                <span class="badge bg-danger">Out of Stock</span>
+
+                {% elif product.stock <= 5%}
+                <span class="badge bg-warning text-dark">Low Stock</span>
+
+                {% else %}
+                <span class="badge bg-success">In Stock</span>
+
+                {% endif %}
+
+                <p class="card-text mt-2">
                     {{ product.description|truncatechars:60 }}
                 </p>
+
+                <small class= "text-muted">
+                    Added: {{product.created_at|date:"M d, Y"}}
+                </small>
 
             </div>
 
@@ -66,86 +132,3 @@
 
 {% endblock %}
 
-
-
-
-{% comment %} {% extends 'myapp/base.html' %}
-
-{% block content %}
-
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="fw-bold">My Products</h2>
-    <a href="{% url 'product_create' %}" class="btn btn-success">+ Add Product</a>
-</div>
-
-<!-- Search Bar -->
-    <form method="GET" class="mb-3">
-        <div class="input-group">
-            <input type="text" name="q" class="form-control" placeholder="Search products...">
-            <button class="btn btn-outline-primary">Search</button>
-        </div>
-    </form>
-
-    <!-- Messages -->
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-success">{{ message }}</div>
-        {% endfor %}
-    {% endif %}
-
-<div class="card shadow">
-    <div class="card-body">
-        {% if products %}
-        <table class="table table-hover align-middle">
-            <thead class="table-dark">
-                <tr>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Description</th>
-                    <th>Image</th>
-                    <th class="text-center">Actions</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                {% for product in products %}
-                <tr>
-                    <td class="fw-semibold">{{ product.name }}</td>
-                    <td class="text-success fw-bold">${{ product.price }}</td>
-                    <td>{{ product.description }}</td>
-                    <td>
-                        {% if product.image %}
-                        <img src="{{ product.image.url }}" width="60" height="60" style="object-fit: cover;">
-                        {% else %}
-                         No Image
-                        {% endif %}
-                    </td>
-
-                    <td class="text-center">
-                        <a href="{% url 'product_update' product.id %}" class="btn btn-warning btn-sm">Edit</a>
-                        <a href="{% url 'product_delete' product.id %}" class="btn btn-danger btn-sm">Delete</a>
-                    </td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="4" class="text-center text-muted">No products found</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-
-        </table>
-
-        {% else %}
-            <div class="text-center p-4">
-                    <h5>No products yet.</h5>
-                    <p>Start by adding your first product.</p>
-                    <a href="{% url 'product_create' %}" class="btn btn-success">
-                        Add Product
-                    </a>
-            </div>
-        {% endif %}
-
-    </div>
-</div>
-
-{% endblock %} {% endcomment %}

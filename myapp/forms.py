@@ -6,8 +6,9 @@ from django.contrib.auth.forms import UserCreationForm
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['name', 'price', 'description', 'image']
+        fields = ['category','name', 'price', 'description', 'image']
         widgets = {
+            'category' : forms.Select(attrs={'class': 'form-select'}),
             'name' : forms.TextInput(attrs={'class' : 'form-control rounded', 'placeholder': 'Enter Product name'}),
             'price' : forms.NumberInput(attrs={'class': 'form-control rounded', 'placeholder':'Enter Price'}),
             'description' : forms.Textarea(attrs={'class': 'form-control rounded', 'placeholder':'Enter description'}),
@@ -26,6 +27,5 @@ class SignUpForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        # Add Bootstrap class to all fields
         for field in self.fields.values():
             field.widget.attrs.update({'class': 'form-control'})

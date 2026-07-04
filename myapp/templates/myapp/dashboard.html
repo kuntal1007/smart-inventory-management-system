@@ -4,30 +4,77 @@
 
 <div class="container mt-4">
 
-    <h2 class="mb-4 fw-bold">Dashboard</h2>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 class="fw-bold">Inventory Dashboard</h2>
+        <p class="text-muted mb-0">
+            Welcome back, {{ request.user.username }}
+        </p>
+    </div>
+
+    <a href="{% url 'product_create' %}" class="btn btn-success">
+        + Add Product
+    </a>
+</div>
 
     <!-- Cards -->
-    <div class="row">
+    <div class="row g-3">
 
-        <div class="col-md-4">
-            <div class="card text-white bg-primary mb-3">
-                <div class="card-body text-center">
-                    <h5>Total Products</h5>
-                    <h2>{{ total_products }}</h2>
-                </div>
+    <div class="col-md-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-body text-center">
+                <h6 class="text-muted">📦 Total Products</h6>
+                <h2>{{ total_products }}</h2>
             </div>
         </div>
-
-        <div class="col-md-4">
-            <div class="card text-white bg-success mb-3">
-                <div class="card-body text-center">
-                    <h5>Total Value</h5>
-                    <h2>${{ total_value }}</h2>
-                </div>
-            </div>
-        </div>
-
     </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-body text-center">
+                <h6 class="text-muted">💰 Inventory Value</h6>
+                <h2>${{ total_value }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-body text-center">
+                <h6 class="text-muted">📂 Categories</h6>
+                <h2>{{ total_categories }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-body text-center">
+                <h6 class="text-muted">⚠️ Low Stock</h6>
+                <h2>{{ low_stock }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-body text-center">
+                <h6 class="text-muted">❌ Out of Stock</h6>
+                <h2>{{ out_of_stock }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-body text-center">
+                <h6 class="text-muted">📈 In Stock</h6>
+                <h2>{{ total_products|add:"-0" }}</h2>
+            </div>
+        </div>
+    </div>
+
+</div>
 
     <!-- Latest Products -->
     <div class="card shadow mt-4">
@@ -54,5 +101,25 @@
     </div>
 
 </div>
+
+<script>
+
+const ctx = document.getElementById('categoryChart');
+
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: {{ labels|safe }},
+        datasets: [{
+            label: 'Products',
+            data: {{ counts|safe }}
+        }]
+    },
+    options: {
+        responsive: true
+    }
+});
+
+</script>
 
 {% endblock %}
