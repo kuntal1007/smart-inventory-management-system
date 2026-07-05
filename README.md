@@ -122,6 +122,7 @@ http://127.0.0.1:8000/
 * Category-based filtering
 * Dashboard displaying inventory statistics
 
+---
 
 ###  Learning Outcomes
 
@@ -139,5 +140,6 @@ This project demonstrates knowledge of:
 * File Upload Handling
 * Responsive Web Design
 
+---
 
 ### ⭐ If you found this project useful, consider giving it a star on GitHub!
