@@ -1,6 +1,6 @@
 ##  Smart Inventory Management System
 
-##  Overview
+###  Overview
 
 The **Smart Inventory Management System** is a Django-based web application designed to help users efficiently manage products and inventory. It provides a secure authentication system, product management features, inventory tracking, category organization, and an interactive dashboard for monitoring inventory data.
 
@@ -8,7 +8,7 @@ This project demonstrates full-stack web development using Django, Python, SQLit
 
 ---
 
-##  Features
+###  Features
 
 *  User Registration, Login, and Logout
 *  User Profile Management
@@ -24,7 +24,7 @@ This project demonstrates full-stack web development using Django, Python, SQLit
 
 ---
 
-##  Technologies Used
+###  Technologies Used
 
 ### Backend
 
@@ -49,9 +49,9 @@ This project demonstrates full-stack web development using Django, Python, SQLit
 
 
 
-##  Project Structure
+###  Project Structure
 
-##  Installation
+###  Installation
 
 ### Clone the repository
 
@@ -111,7 +111,7 @@ http://127.0.0.1:8000/
 
 ---
 
-## Key Functionalities
+### Key Functionalities
 
 * Secure user authentication
 * Product inventory management
@@ -123,7 +123,7 @@ http://127.0.0.1:8000/
 * Dashboard displaying inventory statistics
 
 
-##  Learning Outcomes
+###  Learning Outcomes
 
 This project demonstrates knowledge of:
 
@@ -140,4 +140,4 @@ This project demonstrates knowledge of:
 * Responsive Web Design
 
 
-## If you found this project useful, consider giving it a star on GitHub!
+### ⭐ If you found this project useful, consider giving it a star on GitHub!
